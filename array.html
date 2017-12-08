@@ -25,7 +25,7 @@
     <div id="arr">
         <div>
             <ul class="ownUl">
-                <li @click="listClick($event)" style="font-size:16px;color:#333">CST列表</li>
+                <li @click="listClick($event)" style="font-size:16px;color:#333">列表</li>
                 <li @click="listClick($event)" v-for="item in arr1" >
                     <div class="checkbox">
                         <label>
@@ -92,8 +92,8 @@
     new Vue({
         el:'#arr',
         data:{
-            arr1:list1,
-            arr2:list2,
+            list1:list1,
+            list2:list2,
             // 全选的默认
             allChecked:false,
             indexs:[],
@@ -110,7 +110,7 @@
             },
             // 获取第二个数组里面的对象
             getarrayitem:function(){
-                this.indexs = this.arr2.map(function(json){
+                this.indexs = this.list2.map(function(json){
                     return json.id
                 })
             },
