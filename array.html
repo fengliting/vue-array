@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./vue.js"></script>
+</head>
+<style>
+    .ownUl li {
+        padding: 5px 25px;
+        outline: 0;
+        overflow: hidden;
+        display: block;
+        font-weight: 700;
+        line-height: 1.5384616;
+        cursor: default;
+        font-size: 12px;
+        color: #666;
+    }
+    .ownUl li div.checkbox {
+        margin: 0!important;
+    }
+</style>
+<body>
+    <div id="arr">
+        <div>
+            <ul class="ownUl">
+                <li @click="listClick($event)" style="font-size:16px;color:#333">CST列表</li>
+                <li @click="listClick($event)" v-for="item in arr1" >
+                    <div class="checkbox">
+                        <label>
+                            <input class="chk_1" type="checkbox" @click="choseitem($event.target.value)" v-model="indexs" :value="item.id">
+                            {{item.value}}
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+<script>
+    // 第一个数组，全部都包含
+    var list1 = [{
+        value:'Mary',
+        id:1,
+    },{
+        value:'Away',
+        id:2,
+    },{
+        value:'Ali',
+        id:3,
+    },{
+        value:'Lili',
+        id:4,
+    },{
+        value:'Lala',
+        id:5,
+    },{
+        value:'Haha',
+        id:6,
+    },{
+        value:'Gigi',
+        id:7,
+    },{
+        value:'Neinei',
+        id:8,
+    },{
+        value:'Mumu',
+        id:9,
+    },{
+        value:'Pupu',
+        id:10,
+    }]
+    // 第二个数组，只包含其中一些
+    var list2 = [{
+        value:'Mary',
+        id:1,
+    },{
+        value:'Away',
+        id:2,
+    },{
+        value:'Gigi',
+        id:7,
+    },{
+        value:'Neinei',
+        id:8,
+    },{
+        value:'Pupu',
+        id:10,
+    }]
+    new Vue({
+        el:'#arr',
+        data:{
+            arr1:list1,
+            arr2:list2,
+            // 全选的默认
+            allChecked:false,
+            indexs:[],
+        },
+        mounted:function(){
+            // 一进入页面就调用
+            this.getarrayitem();
+        },
+        methods:{
+            // 阻止浏览器默认事件
+            listClick:function(event){
+                event.stopImmediatePropagation()
+                event.stopPropagation();
+            },
+            // 获取第二个数组里面的对象
+            getarrayitem:function(){
+                this.indexs = this.arr2.map(function(json){
+                    return json.id
+                })
+            },
+            // 原生js判断数值是否在某一个数组内
+            isArr:function(val,arr){
+            　　var testStr=','+arr.join(",")+","; 
+            　　return testStr.indexOf(","+val+",")!=-1; 
+            },
+            // 选中哪一个值
+            choseitem:function(inputid){
+                //判断是否在第二个数组里面
+                console.log(this.indexs)
+                if (this.isArr(inputid, this.indexs)) {
+                    console.log("存在在第二个数组之内")
+                } else {
+                    console.log("不存在第二个数组之内")
+                }
+            }
+        }
+    })
+</script>
+
+</html>
